@@ -1,5 +1,8 @@
 # LiveTerrain — prototype géographique UE 5.8 hors ligne
 
+Pour comprendre le code et transférer le prototype dans un projet existant :
+[Architecture et guide d’intégration](docs/ARCHITECTURE_ET_INTEGRATION.md).
+
 Le prototype consomme **les fichiers du script existant** `tools/geodata/download.py`.
 Il ne télécharge rien depuis Unreal. Le pipeline est :
 
