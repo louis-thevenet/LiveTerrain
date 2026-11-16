@@ -77,3 +77,14 @@ DerivedDataCache/*
 
 # Vscode
 .vscode
+# Données géographiques acquises localement
+/geodata/
+__pycache__/
+
+# Reproducible source dependencies and prepared assets
+/Plugins/CesiumForUnreal/
+/Prepared/
+/.build/
+
+# Separate higher-resolution acquisitions
+/geodata-*/
