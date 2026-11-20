@@ -1,0 +1,357 @@
+{
+  "type": "FeatureCollection",
+  "attribution": "IGN orthophotographies; Licence Ouverte 2.0",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "reviewed-car-1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2979883472620695,
+          48.59032282496938
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": 90,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          183,
+          858
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.297977512238827,
+          48.59028865349313
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": 90,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          179,
+          877
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-3",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.297974803483016,
+          48.59024548952315
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": 90,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          178,
+          901
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-4",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.297969385971395,
+          48.59021131804691
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": 90,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          176,
+          920
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-5",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2979666772155847,
+          48.590180743568176
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": 90,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          175,
+          937
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-6",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.298202338971107,
+          48.59030843697938
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": 90,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          262,
+          866
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-7",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2981806689246222,
+          48.59022210903941
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": 90,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          254,
+          914
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-8",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.298833479074978,
+          48.59129761129153
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": 0,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          495,
+          316
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-9",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2988036827610614,
+          48.59118250737157
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": -20,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          484,
+          380
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-10",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.29884160534241,
+          48.59119149986532
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": -20,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          498,
+          375
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-11",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.298917450505107,
+          48.59121488034906
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": -20,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          526,
+          362
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-12",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2996813196436974,
+          48.59040195891435
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": 0,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          808,
+          814
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "reviewed-car-13",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.299716533469235,
+          48.590409152909345
+        ]
+      },
+      "properties": {
+        "kind": "parked_car",
+        "heading": 0,
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "source": "IGN orthophotographies; Licence Ouverte 2.0; visually reviewed parked-car centres",
+        "source_file": "orthophotos/ortho_024576_010240.tif",
+        "source_sha256": "6d509aeb71efb65c0a79ccb32c304e0d47a2e43a417fdd02276e714cd6ea6e57",
+        "source_pixel": [
+          821,
+          810
+        ],
+        "placement": "manual image interpretation; approximate centre and heading",
+        "dimensions": "generic passenger car dimensions; not surveyed"
+      }
+    }
+  ]
+}

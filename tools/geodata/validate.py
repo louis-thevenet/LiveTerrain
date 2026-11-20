@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate actual prepared GLBs: buffers, bounds, indices, ECEF and shared edges."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import struct
@@ -12,6 +13,23 @@ from rasterio.io import MemoryFile
 def validate(folder):
     tileset = json.loads((folder/'tileset.json').read_text())
     zone = json.loads((folder/'zone.json').read_text())
+    native = zone.get('native_trees')
+    if native:
+        from native_trees import DTYPE
+        assert native['file'] == 'trees.bin' and native['schema'] == 1
+        raw = (folder/'trees.bin').read_bytes()
+        assert hashlib.sha256(raw).hexdigest() == native['sha256']
+        magic,version,count = struct.unpack_from('<4sII',raw)
+        assert magic == b'LTRE' and version == 1 and count == native['count']
+        assert count == zone['scene_features']['counts']['tree']
+        assert len(raw) == 12+count*DTYPE.itemsize
+        trees = np.frombuffer(raw,dtype=DTYPE,offset=12)
+        assert np.all(np.isfinite(trees['ecef']))
+        assert np.all(np.isfinite(trees['height']) & (trees['height']>0) & (trees['height']<=80))
+        assert np.all(np.isfinite(trees['diameter']) & (trees['diameter']>0) & (trees['diameter']<=50))
+        lon,lat,_ = Transformer.from_crs(4978,4979,always_xy=True).transform(*trees['ecef'].T)
+        assert np.all(np.abs(lon-zone['longitude'])<.1) and np.all(np.abs(lat-zone['latitude'])<.1)
+        print(f'Validated {count} native mesh tree placements and source checksum')
     transform = np.array(tileset['root']['transform']).reshape(4,4).T
     inv = Transformer.from_crs(4978,4979,always_xy=True)
     textured_roofs = zone.get('preparation',{}).get('roof_orthophoto',False)
@@ -68,6 +86,11 @@ def validate(folder):
                 assert len(indices)%6 == 0 and prim['material'] == 0
                 tile_roofs = len(indices)//6
                 roofs += tile_roofs
+            elif role in ('tree', 'hedge', 'parked_car'):
+                assert not (native and role == 'tree'), 'Native zone still contains placeholder trees'
+                assert 2 <= prim['material'] < len(doc['materials'])
+                assert 'TEXCOORD_0' not in prim['attributes']
+                assert np.all(np.linalg.norm(normals, axis=1) > .9), path
             else:
                 assert role == 'terrain' and prim['material'] == 0
             if role in ('terrain','building_roofs'):

@@ -13,10 +13,12 @@ UE_WRAPPER ?= $(if $(wildcard /etc/NIXOS),nix run $(CURDIR)\#ue-shell --,)
 export UNREAL_ENGINE_ROOT := $(UE_ROOT)
 export UNREAL_ENGINE_COMPILER_DIR := $(SDK)
 DATA ?= geodata-zone48_5911-2_3376-5km
-OUTPUT ?= Prepared/zone-48_5911-2_3376-5km
+OUTPUT ?= Prepared/zone-48_5911-2_3376-tree-meshes
+FEATURE_BASE ?= Prepared/zone-48_5911-2_3376-features
+FEATURES ?= Prepared/scene-features-48_5911-2_3376.geojson
 HEIGHT_OFFSET ?=
 
-.PHONY: setup check-engine cesium native build run editor clean clean-native rebuild prepare test validate doctor
+.PHONY: setup check-engine cesium native build run editor clean clean-native rebuild prepare trees test validate doctor
 check-engine:
 	@test -x "$(UE_ROOT)/Engine/Binaries/Linux/UnrealEditor" || { echo 'Set UE_ROOT to the UE 5.8 Linux installation'; exit 1; }
 	@test -x "$(SDK)/bin/clang++" || { echo 'Missing UE SDK: set SDK to the bundled x86_64 toolchain'; exit 1; }
@@ -53,7 +55,11 @@ editor: build
 
 prepare:
 	@test -n "$(HEIGHT_OFFSET)" || { echo 'Specify HEIGHT_OFFSET in metres (0 explicitly selects approximate vertical alignment)'; exit 1; }
-	python tools/geodata/prepare.py --input "$(DATA)" --output "$(OUTPUT)" --height-offset "$(HEIGHT_OFFSET)" $(PREPARE_ARGS)
+	python tools/geodata/prepare.py --input "$(DATA)" --output "$(OUTPUT)-baked" --height-offset "$(HEIGHT_OFFSET)" $(if $(wildcard $(FEATURES)),--features "$(FEATURES)",) $(PREPARE_ARGS)
+	python tools/geodata/native_trees.py --base "$(OUTPUT)-baked" --output "$(OUTPUT)"
+
+trees:
+	python tools/geodata/native_trees.py --base "$(FEATURE_BASE)" --output "$(OUTPUT)"
 
 validate:
 	python tools/geodata/validate.py "$(OUTPUT)"

@@ -88,3 +88,6 @@ __pycache__/
 
 # Separate higher-resolution acquisitions
 /geodata-*/
+
+# Reviewed feature placements are small source data, not acquisition caches.
+!/geodata-features/

@@ -18,6 +18,7 @@ from rasterio.io import MemoryFile
 from pyproj import Transformer
 from shapely.geometry import shape
 from shapely.geometry.polygon import orient
+import scene_features
 
 
 def dump(path, obj):
@@ -65,13 +66,17 @@ def building_meshes(verts, corners, bounds):
             (verts[4:8],[0,1,2,0,2,3],project_uv(corners,bounds),0,'building_roofs'))
 
 
-def glb(path, meshes, png, image_bounds=None):
+def glb(path, meshes, png, image_bounds=None, attribution=None):
     """Write terrain, neutral walls and geographically textured roof primitives."""
     blob = bytearray()
     doc = dict(asset={'version': '2.0', 'generator': 'LiveTerrain', 'copyright': 'IGN: BD TOPO, orthophotographies et altimetrie; Licence Ouverte 2.0'}, bufferViews=[], accessors=[],
                materials=[{'pbrMetallicRoughness': {'baseColorTexture': {'index': 0}, 'metallicFactor': 0, 'roughnessFactor': 1}, 'doubleSided': True},
                           {'pbrMetallicRoughness': {'baseColorFactor': [.65, .61, .54, 1], 'metallicFactor': 0, 'roughnessFactor': 1}, 'doubleSided': True}],
                textures=[{'source': 0, 'sampler': 0}], samplers=[{'magFilter': 9729, 'minFilter': 9729, 'wrapS': 33071, 'wrapT': 33071}])
+    for color in scene_features.COLORS:
+        doc["materials"].append({"pbrMetallicRoughness": {"baseColorFactor": [*color, 1], "metallicFactor": 0, "roughnessFactor": .85}, "doubleSided": True})
+    if attribution:
+        doc["asset"]["copyright"] += "; " + attribution
     def view(data):
         blob.extend(b'\0' * (-len(blob) % 4))
         idx = len(doc['bufferViews'])
@@ -209,6 +214,9 @@ def prepare(args):
     radius = job['radius']
     step = job['dem_step']
     ntiles = math.ceil(2*radius/tile_size)
+    features_path = getattr(args, "features", None)
+    features_by_tile, features_source = scene_features.load(features_path, xy, radius, tile_size)
+    feature_counts = dict.fromkeys(scene_features.ROLES, 0)
     buildings_by_tile = {}
     for rect, h in buildings:
         cx, cy = rect.centroid.coords[0]
@@ -301,7 +309,14 @@ def prepare(args):
                 meshes = [(p,indices,uv,0,'terrain')]
                 if bp:
                     meshes.extend(((bp,bi,None,1,'building_walls'),(rp,ri,ruv,0,'building_roofs')))
-                glb(out/name,meshes,png,image_bounds=image_bounds)
+                feature_meshes, counts = scene_features.meshes(features_by_tile.get((row,col), []), sample, positions)
+                meshes.extend(feature_meshes)
+                if feature_meshes:
+                    points = np.vstack((points, *(m[0] for m in feature_meshes)))
+                for kind, count in counts.items():
+                    feature_counts[kind] += count
+                glb(out/name,meshes,png,image_bounds=image_bounds,
+                    attribution="; ".join(features_source["sources"]) if features_source else None)
                 bounds = box(points)
                 children.append(dict(boundingVolume=bounds, geometricError=0, content={'uri':name}))
                 all_bounds.extend([points.min(axis=0),points.max(axis=0)])
@@ -312,10 +327,15 @@ def prepare(args):
     if not children:
         raise ValueError('No valid terrain tiles')
     (out/'source-manifest.json').write_bytes((root/'manifest.json').read_bytes())
-    dump(out/'tileset.json',dict(asset={'version':'1.1', 'copyright':'IGN; Licence Ouverte 2.0'},geometricError=1e6,
+    attribution = 'IGN; Licence Ouverte 2.0'
+    if features_source:
+        attribution += '; ' + '; '.join(features_source['sources'])
+    dump(out/'tileset.json',dict(asset={'version':'1.1', 'copyright':attribution},geometricError=1e6,
          root=dict(boundingVolume=box(np.array(all_bounds)),transform=transform.T.ravel().tolist(),
                    geometricError=1e6,refine='REPLACE',children=children)))
     center_h, center_good = sample(np.array([0.]),np.array([0.]))
+    if features_path is not None:
+        (out/'scene-features.geojson').write_bytes(Path(features_path).read_bytes())
     dump(out/'zone.json',dict(schema=1,longitude=lon,latitude=lat,
          height=float(center_h[0]+args.height_offset) if center_good[0] else args.height_offset,
          height_offset=args.height_offset,vertical_reference='constant IGN normal to WGS84 ellipsoid offset; approximate',
@@ -323,6 +343,7 @@ def prepare(args):
          preparation=dict(tile_size_m=args.tile_size, texture_step_m=args.texture_step,
                           source_ortho_step_m=job['ortho_step'], default_height_m=args.default_height,
                           roof_orthophoto=True),
+         scene_features=dict(counts=feature_counts, source=features_source, geometry='prototype procedural models; dimensions default where unmeasured'),
          tiles=len(children),buildings=count_buildings,attribution='IGN BD TOPO / orthophotographies / altimétrie; see original manifest'))
     print(f'Prepared {len(children)} tiles, {count_buildings} buildings in {out}')
 
@@ -334,6 +355,7 @@ def main():
     ap.add_argument('--tile-size',type=float,default=256)
     ap.add_argument('--texture-step',type=float,default=None,
                     help='Metres per texture pixel; defaults to ortho_step from the acquisition manifest')
+    ap.add_argument('--features',type=Path,help='WGS84 GeoJSON with sourced tree, hedge and reviewed parked_car placements')
     ap.add_argument('--default-height',type=float,default=8)
     ap.add_argument('--height-offset',type=float,required=True,help='Explicit constant H_ellipsoid - H_IGN in metres; 0 is approximate only')
     args = ap.parse_args()

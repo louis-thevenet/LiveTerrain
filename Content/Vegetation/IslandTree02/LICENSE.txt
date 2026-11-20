@@ -1,0 +1,9 @@
+Island Tree 02 by Rico Cilliers and Rob Tuytel / Poly Haven
+CC0 1.0 Universal public domain dedication
+https://polyhaven.com/a/island_tree_02
+https://polyhaven.com/license
+https://creativecommons.org/publicdomain/zero/1.0/
+Powered by Poly Haven
+
+Unreal import rebuilt from source glTF UVs; bark, branches and masked leaves use 2K textures.
+This illustrative mesh does not identify the actual species at the geographic tree anchors.

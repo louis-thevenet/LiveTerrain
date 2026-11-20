@@ -13,6 +13,14 @@ manifest.json + relief/*.tif + orthophotos/*.tif + batiments/*.geojson
     → CesiumGeoreference + Cesium3DTileset dans Unreal
 ```
 
+Les arbres, haies et voitures stationnées peuvent être ajoutés sous forme de
+couche statique géoréférencée : [préparation, sources et limites de fidélité](docs/STATIC_SCENE_FEATURES.md).
+Les positions individuelles des arbres dans les bois restent estimées ; les
+voitures proviennent de placements relus sur les orthophotos. La scène locale
+enrichie `Prepared/zone-48_5911-2_3376-tree-meshes` est sélectionnée par défaut.
+Les arbres utilisent maintenant un vrai maillage texturé, partagé par instanciation
+native avec Nanite : [modèles et utilisation](docs/TREE_MESHES.md).
+
 ## Installation et compilation (Linux x86_64 / NixOS)
 
 Installation locale détectée : `/home/louis/src/unreal-engine/engine`, UE **5.8.4**,

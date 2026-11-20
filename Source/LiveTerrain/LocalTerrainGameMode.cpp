@@ -1,5 +1,6 @@
 #include "LocalTerrainGameMode.h"
 #include "LocalTerrainEnvironment.h"
+#include "LocalTerrainTrees.h"
 #include "TerrainFlyPawn.h"
 #include "TerrainHUD.h"
 #include "Cesium3DTileset.h"
@@ -70,6 +71,8 @@ void ALocalTerrainGameMode::StartPlay()
     }
     ACesiumGeoreference* Geo = ACesiumGeoreference::GetDefaultGeoreference(this);
     Geo->SetOriginLongitudeLatitudeHeight(FVector(Lon, Lat, Height));
+    FVector TreePreviewLocation = FVector::ZeroVector;
+    LocalTerrain::CreateTrees(GetWorld(), Geo, Folder, &TreePreviewLocation);
     ACesium3DTileset* Tiles = GetWorld()->SpawnActor<ACesium3DTileset>();
     Tiles->SetGeoreference(Geo);
     Tiles->SetTilesetSource(ETilesetSource::FromUrl);
@@ -108,6 +111,11 @@ void ALocalTerrainGameMode::StartPlay()
         {
             Pawn->SetActorLocation(Geo->TransformLongitudeLatitudeHeightPositionToUnreal(FVector(Lon, Lat, Height + 150)));
             PC->SetControlRotation(FRotator(-15, 0, 0));
+            if (FParse::Param(FCommandLine::Get(), TEXT("GeoTreePreview")) && !TreePreviewLocation.IsZero())
+            {
+                Pawn->SetActorLocation(TreePreviewLocation + FVector(-2500, 0, 700));
+                PC->SetControlRotation(FVector(2500, 0, -100).Rotation());
+            }
             if (UFloatingPawnMovement* Move = Pawn->FindComponentByClass<UFloatingPawnMovement>())
                 Move->MaxSpeed = 15000.f;
         }

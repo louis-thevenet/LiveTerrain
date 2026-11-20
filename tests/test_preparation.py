@@ -3,6 +3,8 @@ import importlib.util
 import json
 from pathlib import Path
 import struct
+import sys
+sys.path.insert(0, str(Path(__file__).parents[1]/"tools/geodata"))
 import tempfile
 import unittest
 import numpy as np
