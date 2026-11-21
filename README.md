@@ -291,6 +291,11 @@ LogTileStats=true
 ```
 
 `Directory` est relatif au projet ou absolu ; `-GeoData=/chemin/prepare` le remplace.
+Pour comparer Play dans l’éditeur et le lancement standalone avec le même jeu
+de données, utiliser `make editor OUTPUT=Prepared/ma-zone` et
+`make run OUTPUT=Prepared/ma-zone`. Une ouverture directe du `.uproject` utilise
+`Directory` dans `Config/DefaultGame.ini`. Le chemin du projet est résolu en
+chemin absolu avant de construire l’URL `file:///`, y compris dans l’éditeur.
 L'origine de `CesiumGeoreference` vient des coordonnées du manifeste et de l'altitude
 centrale préparée. Le joueur, les textures, le relief et les bâtiments partagent
 le même repère. Aucun Cesium World Terrain ou overlay réseau n'est créé.

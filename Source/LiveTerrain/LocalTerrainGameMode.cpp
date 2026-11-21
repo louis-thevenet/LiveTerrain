@@ -45,7 +45,10 @@ void ALocalTerrainGameMode::StartPlay()
     const TCHAR* Section = TEXT("LiveTerrain.LocalData");
     GConfig->GetString(Section, TEXT("Directory"), Folder, GGameIni);
     FParse::Value(FCommandLine::Get(), TEXT("GeoData="), Folder);
-    Folder = FPaths::ConvertRelativePathToFull(FPaths::ProjectDir(), Folder);
+    // ProjectDir can itself be relative in the editor. Resolve it against the
+    // executable directory before using it as the base for a file:// URL.
+    Folder = FPaths::ConvertRelativePathToFull(
+        FPaths::ConvertRelativePathToFull(FPaths::ProjectDir()), Folder);
     FString Json;
     TSharedPtr<FJsonObject> Zone;
     if (!FFileHelper::LoadFileToString(Json, *(Folder / TEXT("zone.json"))) ||
